@@ -95,11 +95,8 @@ export const Web3Provider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const signTransaction = async (txn: algosdk.Transaction): Promise<Uint8Array> => {
     try {
-      const signerTransaction = [{
-        txn: algosdk.encodeUnsignedTransaction(txn),
-        signers: [accountAddress!]
-      }];
-      const signedTxns = await peraWallet.signTransaction(signerTransaction);
+      const signerTransaction = [{ txn, signers: [accountAddress!] }];
+      const signedTxns = await peraWallet.signTransaction([signerTransaction]);
       return signedTxns[0];
     } catch (error) {
       console.error('Failed to sign transaction:', error);

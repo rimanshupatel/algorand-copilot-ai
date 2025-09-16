@@ -74,7 +74,7 @@ export class AlgorandService {
       const txId = response.txid;
       
       // Wait for confirmation
-      const confirmedTxn = await algosdk.waitForConfirmation(this.algodClient, txId, 4);
+      await algosdk.waitForConfirmation(this.algodClient, txId, 4);
       
       return txId;
     } catch (error) {

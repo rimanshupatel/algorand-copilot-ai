@@ -1,79 +1,65 @@
+import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import Navigation from "@/components/Navigation";
-import ChatInterface from "@/components/ChatInterface";
-import PortfolioDashboard from "@/components/PortfolioDashboard";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Bot, Sparkles, Shield, TrendingUp, Wallet, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/hero-crypto.jpg";
-import { Brain, BarChart3, Shield, Zap, MessageSquare, TrendingUp } from "lucide-react";
+import WalletConnection from "@/components/WalletConnection";
+import ChatInterface from "@/components/ChatInterface";
+import Web3Portfolio from "@/components/Web3Portfolio";
+import NFTTransactionPanel from "@/components/NFTTransactionPanel";
+import { useWeb3 } from "@/contexts/Web3Context";
 
 const Index = () => {
-  const features = [
-    {
-      icon: Brain,
-      title: "AI-Powered Analytics",
-      description: "Advanced machine learning algorithms analyze market trends and provide personalized insights for your Algorand investments."
-    },
-    {
-      icon: BarChart3,
-      title: "Real-Time Portfolio Tracking",
-      description: "Monitor your ALGO holdings, NFTs, and DeFi positions with live price updates and performance metrics."
-    },
-    {
-      icon: MessageSquare,
-      title: "Conversational Assistant",
-      description: "Chat with our AI to get instant answers about your portfolio, market conditions, and investment strategies."
-    },
-    {
-      icon: Shield,
-      title: "Security First",
-      description: "Enterprise-grade security with encrypted data transmission and secure wallet integrations."
-    }
-  ];
+  const { isConnected } = useWeb3();
 
   return (
-    <div className="min-h-screen bg-gradient-hero">
+    <div className="min-h-screen bg-background">
       <Navigation />
       
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-6">
-        <div className="container mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center bg-secondary/50 rounded-full px-4 py-2 mb-6">
-                <Zap className="w-4 h-4 text-primary mr-2" />
-                <span className="text-sm text-foreground">Next-Generation Crypto Analytics</span>
+      <section className="relative overflow-hidden bg-gradient-primary">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative container mx-auto px-4 py-24">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <Badge variant="secondary" className="bg-white/10 text-white border-white/20">
+                  <Sparkles className="w-3 h-3 mr-1" />
+                  Powered by AI
+                </Badge>
+                <h1 className="text-5xl font-bold text-white leading-tight">
+                  Your AI-Powered
+                  <span className="block text-accent">Algorand Copilot</span>
+                </h1>
+                <p className="text-xl text-white/90 leading-relaxed">
+                  Experience the future of crypto analytics with personalized portfolio insights, 
+                  NFT trend analysis, and smart contract interactions on Algorand.
+                </p>
               </div>
               
-              <h1 className="text-4xl lg:text-6xl font-bold text-foreground mb-6 leading-tight">
-                Your AI-Powered
-                <span className="bg-gradient-primary bg-clip-text text-transparent"> Algorand </span>
-                Analytics Copilot
-              </h1>
-              
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-                Transform your crypto investing with personalized portfolio intelligence, market insights, and an AI assistant that understands the Algorand ecosystem.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button variant="hero" size="lg">
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Start Chatting with AI
+              {!isConnected ? (
+                <Button variant="hero" size="lg" className="bg-white text-primary hover:bg-white/90">
+                  Connect Pera Wallet
+                  <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <Button variant="outline" size="lg">
-                  <TrendingUp className="w-5 h-5 mr-2" />
-                  View Demo Dashboard
-                </Button>
-              </div>
+              ) : (
+                <Badge variant="default" className="bg-gradient-success text-white px-4 py-2">
+                  <Wallet className="w-4 h-4 mr-2" />
+                  Wallet Connected
+                </Badge>
+              )}
             </div>
             
-            <div className="flex-1">
-              <div className="relative">
-                <img 
-                  src={heroImage} 
-                  alt="Copilot Crypto Analytics Dashboard" 
-                  className="rounded-2xl shadow-elevated animate-float"
-                />
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-gradient-ai rounded-full animate-glow blur-xl opacity-50"></div>
+            <div className="relative">
+              <img 
+                src={heroImage} 
+                alt="Algorand Copilot AI Platform" 
+                className="rounded-2xl shadow-2xl w-full"
+              />
+              <div className="absolute -bottom-6 -right-6 bg-gradient-ai p-4 rounded-xl shadow-lg">
+                <Bot className="w-8 h-8 text-accent-foreground" />
               </div>
             </div>
           </div>
@@ -81,102 +67,89 @@ const Index = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto">
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Built for the Future of Crypto
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Revolutionary Crypto Intelligence
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Copilot combines cutting-edge AI with deep Algorand expertise to deliver insights that matter.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Harness the power of AI to navigate the Algorand ecosystem with confidence and precision.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <Card key={index} className="p-6 bg-card border-border shadow-elevated hover:shadow-glow-primary transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4 group-hover:animate-glow">
-                    <Icon className="w-6 h-6 text-primary-foreground" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </Card>
-              );
-            })}
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="p-8 text-center bg-card border-border shadow-elevated hover:shadow-glow-primary transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-ai rounded-full flex items-center justify-center mx-auto mb-4">
+                <Bot className="w-8 h-8 text-accent-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">AI-Powered Analytics</h3>
+              <p className="text-muted-foreground">
+                Advanced machine learning algorithms analyze market trends and provide personalized investment insights.
+              </p>
+            </Card>
+            
+            <Card className="p-8 text-center bg-card border-border shadow-elevated hover:shadow-glow-primary transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-success rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-success-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">Secure & Decentralized</h3>
+              <p className="text-muted-foreground">
+                Built on Algorand's secure blockchain with non-custodial wallet integration for maximum security.
+              </p>
+            </Card>
+            
+            <Card className="p-8 text-center bg-card border-border shadow-elevated hover:shadow-glow-primary transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <TrendingUp className="w-8 h-8 text-primary-foreground" />
+              </div>
+              <h3 className="text-xl font-semibold text-foreground mb-3">Real-time Insights</h3>
+              <p className="text-muted-foreground">
+                Get instant notifications about portfolio changes, NFT opportunities, and market movements.
+              </p>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* AI Chat Demo */}
-      <section className="py-16 px-6 bg-secondary/30">
-        <div className="container mx-auto">
+      {/* Main Dashboard */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Chat with Your AI Copilot
+            <h2 className="text-3xl font-bold text-foreground mb-4">
+              Your Personal Crypto Command Center
             </h2>
-            <p className="text-xl text-muted-foreground">
-              Experience the power of conversational crypto analytics
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Monitor your portfolio, chat with AI, and execute transactions all in one place.
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
-            <ChatInterface />
-          </div>
+          <Tabs defaultValue="wallet" className="space-y-8">
+            <TabsList className="grid w-full grid-cols-4">
+              <TabsTrigger value="wallet">Wallet</TabsTrigger>
+              <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+              <TabsTrigger value="transactions">Transactions</TabsTrigger>
+              <TabsTrigger value="ai-chat">AI Assistant</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="wallet" className="space-y-6">
+              <WalletConnection />
+            </TabsContent>
+            
+            <TabsContent value="portfolio" className="space-y-6">
+              <Web3Portfolio />
+            </TabsContent>
+            
+            <TabsContent value="transactions" className="space-y-6">
+              <NFTTransactionPanel />
+            </TabsContent>
+            
+            <TabsContent value="ai-chat" className="space-y-6">
+              <ChatInterface />
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
-
-      {/* Portfolio Dashboard Preview */}
-      <section className="py-16 px-6">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Advanced Portfolio Analytics
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Real-time insights into your Algorand investments
-            </p>
-          </div>
-          
-          <PortfolioDashboard />
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-6 bg-gradient-primary">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-primary-foreground mb-4">
-            Ready to Transform Your Crypto Experience?
-          </h2>
-          <p className="text-xl text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of investors who trust Copilot for their Algorand analytics and insights.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg">
-              Start Free Trial
-            </Button>
-            <Button variant="outline" size="lg" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-              Schedule Demo
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-border">
-        <div className="container mx-auto text-center">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-6 h-6 bg-gradient-primary rounded flex items-center justify-center">
-              <Brain className="w-4 h-4 text-primary-foreground" />
-            </div>
-            <span className="text-lg font-bold text-foreground">Copilot Analytics</span>
-          </div>
-          <p className="text-muted-foreground">
-            © 2024 Copilot Analytics. Empowering the future of Algorand investing.
-          </p>
-        </div>
-      </footer>
     </div>
   );
 };
